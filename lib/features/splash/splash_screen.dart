@@ -11,11 +11,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // @override
-  // initState() {
-  //   navigatToOnBoard(context);
-  //   super.initState();
-  // }
+  @override
+  initState() {
+    navigatToOnBoard(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigatToOnBoard(context) async {
-    Duration duration = const Duration(seconds: 3);
+    Duration duration = const Duration(seconds: 1);
     await Future.delayed(duration);
     Navigator.pushReplacementNamed(context, Routes.loginRoute);
   }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Constants {
   Constants._();
 
@@ -6,4 +8,8 @@ class Constants {
   static const String usersCollection = 'users';
 
   static const String themeMode = 'themeMode';
+  static const EdgeInsets defaultPadding = EdgeInsets.symmetric(
+    horizontal: 16,
+    vertical: 8,
+  );
 }

@@ -32,14 +32,14 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => const MaterialApp(
+      builder: (context, child) => MaterialApp(
         title: 'Nova Brian App',
         onGenerateRoute: AppRouter.onGenerateRoute,
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.splashRoute,
-        // theme: CacheHelper.getData(key: Constants.themeMode) == true
-        //     ? AppTheme.darkTheme
-        //     : AppTheme.lightTheme,
+        theme: CacheHelper.getData(key: Constants.themeMode) == true
+            ? AppTheme.darkTheme
+            : AppTheme.lightTheme,
       ),
     );
   }

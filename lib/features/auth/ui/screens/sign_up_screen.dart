@@ -5,11 +5,11 @@ import 'package:nova_brian_app/core/constants/constants.dart';
 import 'package:nova_brian_app/core/helper/extentions.dart';
 import 'package:nova_brian_app/core/helper/spacing.dart';
 import 'package:nova_brian_app/core/routes/routes.dart';
-import 'package:nova_brian_app/features/auth/ui/widgets/login_button.dart';
-import 'package:nova_brian_app/features/auth/ui/widgets/login_forms.dart';
+import 'package:nova_brian_app/features/auth/ui/widgets/sign_up_button.dart';
+import 'package:nova_brian_app/features/auth/ui/widgets/sign_up_forms.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,33 +24,24 @@ class LoginScreen extends StatelessWidget {
                 Image.asset(AppAssets.wave),
                 verticalSpace(40),
                 const Text(
-                  'Sign In',
+                  'Sign Up',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 verticalSpace(20),
-                const LoginForms(),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: TextButton(
-                      onPressed: () {
-                        context.pushNamed(Routes.forgetPassRoute);
-                      },
-                      child: const Text('Forgot Password?')),
-                ),
+                const SignUpForms(),
                 verticalSpace(15),
-
-                const LoginButton(),
+                const SignUpButton(),
                 verticalSpace(20),
                 RichText(
                   text: TextSpan(
-                    text: "Don't have an account? ",
+                    text: "Already have an account? ",
                     style: const TextStyle(color: Colors.black),
                     children: [
                       TextSpan(
-                        text: 'Sign Up',
+                        text: 'Sign In',
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            context.pushReplacmentNamed(Routes.signUpRoute);
+                            context.pushReplacmentNamed(Routes.loginRoute);
                           },
                         style: const TextStyle(
                           color: Colors.blue,
@@ -59,8 +50,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                // TODO: add bloc listener here
+                )
               ],
             ),
           ),
