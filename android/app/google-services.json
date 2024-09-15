@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1079223178504",
+    "project_id": "novabrain-2e9ea",
+    "storage_bucket": "novabrain-2e9ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079223178504:android:ddb2ee3c95e4486c4408bd",
+        "android_client_info": {
+          "package_name": "com.example.nova_brian_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIvrSkHgyGnO3nQTAP1p_UrpHfkalTrD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
