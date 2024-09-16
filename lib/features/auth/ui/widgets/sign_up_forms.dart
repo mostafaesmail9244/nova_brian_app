@@ -24,6 +24,7 @@ class SignUpForms extends StatelessWidget {
               }
               return null;
             },
+            textInputAction: TextInputAction.next,
             inputType: TextInputType.text,
             controller: context.read<RegisterCubit>().nameController,
             autoFill: const [AutofillHints.name],
@@ -31,6 +32,7 @@ class SignUpForms extends StatelessWidget {
           verticalSpace(20),
           CustomTextFormField(
             hintText: 'Enter Your Email',
+            textInputAction: TextInputAction.next,
             validator: (val) {
               if (val!.isEmpty || !AppRegex.isEmailValid(val)) {
                 return 'Please Enter Valid Email';
@@ -45,6 +47,7 @@ class SignUpForms extends StatelessWidget {
           BlocBuilder<RegisterCubit, RegisterState>(
             builder: (context, state) {
               return CustomTextFormField(
+                textInputAction: TextInputAction.done,
                 hintText: 'Enter Your Password',
                 validator: (val) {
                   if (val!.isEmpty) {

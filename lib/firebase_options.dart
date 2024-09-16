@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'novabrain-2e9ea.appspot.com',
     iosBundleId: 'com.example.novaBrianApp',
   );
+
 }

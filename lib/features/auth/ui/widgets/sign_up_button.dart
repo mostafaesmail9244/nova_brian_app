@@ -15,7 +15,9 @@ class SignUpButton extends StatelessWidget {
       width: context.deviceWidth * 0.8,
       child: ElevatedButton(
         onPressed: () async {
-          if (context.read<RegisterCubit>().formKey.currentState!.validate()) {}
+          if (context.read<RegisterCubit>().formKey.currentState!.validate()) {
+            context.read<RegisterCubit>().signUp();
+          }
         },
         child: Text(
           'SignUp',

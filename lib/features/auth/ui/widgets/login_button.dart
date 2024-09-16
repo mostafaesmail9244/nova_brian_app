@@ -15,7 +15,9 @@ class LoginButton extends StatelessWidget {
       width: context.deviceWidth * 0.8,
       child: ElevatedButton(
         onPressed: () async {
-          if (context.read<LoginCubit>().formKey.currentState!.validate()) {}
+          if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+            context.read<LoginCubit>().login();
+          }
         },
         child: Text(
           'Login',

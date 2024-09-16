@@ -14,12 +14,14 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String?)? validator;
   final Widget? sufficIcon;
   final Iterable<String>? autoFill;
+  final TextInputAction? textInputAction;
   final Widget? prefixIcon;
   final String hintText;
   final Color? backGroundColor;
   const CustomTextFormField(
       {super.key,
       this.enabledBorder,
+      this.textInputAction,
       this.focusedBorder,
       this.controller,
       this.hintStyle,
@@ -36,7 +38,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
+      controller: controller, textInputAction: textInputAction,
       maxLines: maxLines ?? 1,
       autofillHints: autoFill,
       obscureText: isObsecureText ?? false,

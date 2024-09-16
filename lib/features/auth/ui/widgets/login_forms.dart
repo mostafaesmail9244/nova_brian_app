@@ -18,6 +18,7 @@ class LoginForms extends StatelessWidget {
         children: [
           CustomTextFormField(
             hintText: 'Enter Your Email',
+            textInputAction: TextInputAction.next,
             validator: (val) {
               if (val!.isEmpty || !AppRegex.isEmailValid(val)) {
                 return 'Please Enter Valid Email';
@@ -39,6 +40,7 @@ class LoginForms extends StatelessWidget {
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.done,
                 controller: context.read<LoginCubit>().passwordController,
                 isObsecureText: context.read<LoginCubit>().isObscure,
                 sufficIcon: IconButton(

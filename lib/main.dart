@@ -1,11 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:nova_brian_app/core/constants/app_assets.dart';
+import 'package:nova_brian_app/bloc_observer.dart';
 import 'package:nova_brian_app/core/constants/constants.dart';
 import 'package:nova_brian_app/core/helper/cache_helper.dart';
 import 'package:nova_brian_app/core/routes/app_router.dart';
 import 'package:nova_brian_app/core/routes/routes.dart';
+import 'package:nova_brian_app/core/service_locator/service_locator.dart';
 import 'package:nova_brian_app/core/theme/app_colors.dart';
 import 'package:nova_brian_app/core/theme/app_theme.dart';
 
@@ -13,12 +16,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   await ScreenUtil.ensureScreenSize();
-
+  setubGetIt();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: AppColors.darkGrey));
+  await Firebase.initializeApp();
+  Bloc.observer = MyBlocObserver();
 
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
