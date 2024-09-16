@@ -73,13 +73,22 @@ class AuthRepository {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       return right("Password Reset Email Sent");
     } on FirebaseAuthException catch (e) {
-      Logger().e('firebase error code ${e.code} : ${e.message}');
-      return Left(e.message!);
+      Logger().e('Firebase error code ${e.code} : ${e.message}');
 
-      // if (e is FirebaseException) {
-      //   return left(ServerFailure.fromFirebaseAuthException(e));
-      // }
-      // return left(ServerFailure(e.toString()));
+      // Handle specific Firebase error codes
+      switch (e.code) {
+        case 'invalid-email':
+          return left("The email address is not valid.");
+        case 'user-not-found':
+          return left("No user found for that email.");
+        case 'too-many-requests':
+          return left("Too many requests. Try again later.");
+        default:
+          return left("An unexpected error occurred. Please try again.");
+      }
+    } catch (e) {
+      Logger().e('Unknown error: $e');
+      return left("An unknown error occurred.");
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:nova_brian_app/core/helper/app_regex.dart';
 import 'package:nova_brian_app/core/helper/extentions.dart';
 import 'package:nova_brian_app/core/helper/spacing.dart';
 import 'package:nova_brian_app/core/shared/custom_button.dart';
+import 'package:nova_brian_app/core/shared/custom_loading_widget.dart';
 import 'package:nova_brian_app/core/shared/custom_text_form_field.dart';
 import 'package:nova_brian_app/features/auth/logic/forget_pass/forget_pass_cubit.dart';
 
@@ -66,21 +67,47 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     }),
                 verticalSpace(20),
                 CustomButton(
-                    text: 'Continue',
-                    onPressed: () {
-                      if (context
-                          .read<ForgetPassCubit>()
-                          .formKey
-                          .currentState!
-                          .validate()) {
-                        context.read<ForgetPassCubit>().forgetPassword();
-                      }
-                    },)
+                  text: 'Send',
+                  onPressed: () {
+                    if (context
+                        .read<ForgetPassCubit>()
+                        .formKey
+                        .currentState!
+                        .validate()) {
+                      context.read<ForgetPassCubit>().forgetPassword();
+                    }
+                  },
+                ),
+                const ForgetPassBlocListener(),
               ],
             ),
           ),
         ),
       )),
+    );
+  }
+}
+
+class ForgetPassBlocListener extends StatelessWidget {
+  const ForgetPassBlocListener({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ForgetPassCubit, ForgetPassState>(
+      listener: (context, state) {
+        if (state is ForgetPassSuccessState) {
+          context.pop();
+          context.showSnackBar('Check your email for reset password');
+
+          context.pop();
+        } else if (state is ForgetPassErrorState) {
+          context.pop();
+          context.showSnackBar(state.error);
+        } else if (state is ForgetPassLoadingState) {
+          customLoading(context);
+        }
+      },
+      child: const SizedBox.shrink(),
     );
   }
 }
