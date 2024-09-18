@@ -144,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextButton(
                     child: const Text("Cancel"),
                     onPressed: () {
+                      context.read<ChatCubit>().file = null;
                       Navigator.of(dialogContext).pop();
                     },
                   ),
