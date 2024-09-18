@@ -9,6 +9,9 @@ import 'package:nova_brian_app/features/auth/logic/register/register_cubit.dart'
 import 'package:nova_brian_app/features/auth/ui/screens/forget_pass_screen.dart';
 import 'package:nova_brian_app/features/auth/ui/screens/login_screen.dart';
 import 'package:nova_brian_app/features/auth/ui/screens/sign_up_screen.dart';
+import 'package:nova_brian_app/features/home/data/service/gemini_services.dart';
+import 'package:nova_brian_app/features/home/logic/cubit/chat_cubit.dart';
+import 'package:nova_brian_app/features/home/ui/screens/home_screen.dart';
 import 'package:nova_brian_app/features/splash/splash_screen.dart';
 
 class AppRouter {
@@ -17,6 +20,12 @@ class AppRouter {
     switch (settings.name) {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
+      case Routes.homeRoute:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => ChatCubit(getIt<GeminiService>())..getUserData(),
+                  child: const HomeScreen(),
+                ));
       case Routes.forgetPassRoute:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(

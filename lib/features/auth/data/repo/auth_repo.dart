@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
+import 'package:nova_brian_app/core/constants/constants.dart';
 import 'package:nova_brian_app/core/constants/firebase_constnats.dart';
+import 'package:nova_brian_app/core/helper/cache_helper.dart';
 import 'package:nova_brian_app/features/auth/data/models/login/login_request_model.dart';
 import 'package:nova_brian_app/features/auth/data/models/sign_up/sign_up_request_model.dart';
 
@@ -14,6 +16,8 @@ class AuthRepository {
     try {
       UserCredential user = await _firebaseAuth.signInWithEmailAndPassword(
           email: body.email, password: body.password);
+      CacheHelper.put(key: Constants.uId, value: user.user!.uid);
+
       return right(user);
     } on FirebaseAuthException catch (e) {
       String? message;

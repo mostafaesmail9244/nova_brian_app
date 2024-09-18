@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nova_brian_app/bloc_observer.dart';
 import 'package:nova_brian_app/core/constants/constants.dart';
@@ -14,6 +15,7 @@ import 'package:nova_brian_app/core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Gemini.init(apiKey: Constants.apiKey);
   await CacheHelper.init();
   await ScreenUtil.ensureScreenSize();
   setubGetIt();
