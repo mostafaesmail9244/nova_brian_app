@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_brian_app/core/constants/app_assets.dart';
 import 'package:nova_brian_app/core/helper/extentions.dart';
-import 'package:nova_brian_app/core/theme/app_colors.dart';
+import 'package:nova_brian_app/core/routes/routes.dart';
 import 'package:nova_brian_app/features/home/logic/cubit/chat_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +19,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.pushNamed(Routes.settingsRoute,
+                    arguments: context.read<ChatCubit>().userData);
+              },
+              icon: Icon(
+                Icons.settings,
+                color: context.isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
+          ]),
       body: BlocConsumer<ChatCubit, ChatState>(
         listener: (context, state) {
           if (state is UpdateChatErrorState) {
@@ -32,8 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
             return Stack(
               children: [
                 DashChat(
-                  messageOptions:
-                      const MessageOptions(containerColor: AppColors.grey),
+                  messageOptions: MessageOptions(
+                    // another user chat bubble color
+                    containerColor: context.isDarkMode
+                        ? Colors.grey.withOpacity(0.8)
+                        : Colors.white.withOpacity(0.8),
+                    // user chat bubble color
+                    currentUserTextColor: Colors.white,
+                    textColor: context.isDarkMode ? Colors.white : Colors.black,
+                  ),
                   inputOptions: InputOptions(trailing: [
                     IconButton(
                       onPressed: () {
@@ -53,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 if (state is UpdateChatLoadingState)
                   const Align(
-                    alignment: Alignment.bottomCenter, // Position at the bottom
+                    alignment: Alignment.bottomCenter,
                     child: Padding(
                       padding: EdgeInsets.only(top: 2, bottom: 4),
                       child: LinearProgressIndicator(),

@@ -12,6 +12,7 @@ import 'package:nova_brian_app/core/routes/routes.dart';
 import 'package:nova_brian_app/core/service_locator/service_locator.dart';
 import 'package:nova_brian_app/core/theme/app_colors.dart';
 import 'package:nova_brian_app/core/theme/app_theme.dart';
+import 'package:nova_brian_app/features/settings/logic/settings/settings_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,21 +35,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
-        title: 'Nova Brian App',
-        onGenerateRoute: AppRouter.onGenerateRoute,
-        debugShowCheckedModeBanner: false,
-        initialRoute: Routes.splashRoute,
-        theme: CacheHelper.getData(key: Constants.themeMode) == true
-            ? AppTheme.darkTheme
-            : AppTheme.lightTheme,
+    return BlocProvider(
+      create: (context) => SettingsCubit(),
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, state) {
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) => MaterialApp(
+              title: 'Nova Brian App',
+              onGenerateRoute: AppRouter.onGenerateRoute,
+              debugShowCheckedModeBanner: false,
+              initialRoute: Routes.splashRoute,
+              theme: CacheHelper.getData(key: Constants.themeMode) == true
+                  ? AppTheme.darkTheme
+                  : AppTheme.lightTheme,
+            ),
+          );
+        },
       ),
     );
   }
 }
-
-// API key  => AIzaSyBW2jlX-c_PKjL1l9gwW_hFa8iVFwS7WU4

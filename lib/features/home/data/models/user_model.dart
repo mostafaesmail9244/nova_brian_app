@@ -12,5 +12,5 @@ class UserModel {
     required this.id,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) =>
-      const UserModel(name: 'name', email: 'email', id: 'id');
+       UserModel(name: json['name'], email:  json['email'], id: json['id']);
 }

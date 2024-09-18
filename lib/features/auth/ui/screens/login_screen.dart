@@ -27,9 +27,13 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: context.deviceHeight * 0.1),
                 Image.asset(AppAssets.wave),
                 verticalSpace(40),
-                const Text(
+                Text(
                   'Sign In',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: context.isDarkMode ? Colors.white : Colors.black,
+                  ),
                 ),
                 verticalSpace(20),
                 const LoginForms(),

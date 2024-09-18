@@ -47,7 +47,7 @@ class ChatCubit extends Cubit<ChatState> {
       } else {
         emit(GetUserDataErrorState(error: 'User data not found in Firestore.'));
       }
-      Logger().i('User data: $userData');
+      Logger().i('User data: ${userData!.email}');
     } on FirebaseException catch (e) {
       emit(GetUserDataErrorState(error: e.message ?? 'Firebase error.'));
       Logger().e('Firebase error code: ${e.code}, message: ${e.message}');

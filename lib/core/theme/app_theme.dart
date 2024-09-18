@@ -64,7 +64,7 @@ class AppTheme {
   static final darkTheme = ThemeData(
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.darkBackground,
-      brightness: Brightness.dark,
+      // brightness: Brightness.dark,
       fontFamily: 'Satoshi',
       sliderTheme: SliderThemeData(
           overlayShape: SliderComponentShape.noOverlay,

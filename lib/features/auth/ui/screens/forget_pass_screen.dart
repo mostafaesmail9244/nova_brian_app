@@ -28,8 +28,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
+            color: context.isDarkMode ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -44,13 +45,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 SizedBox(height: context.deviceHeight * 0.1),
                 Image.asset(AppAssets.message),
                 verticalSpace(40),
-                const Text(
+                Text(
                   'Forget Password',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: context.isDarkMode ? Colors.white : Colors.black,
+                  ),
                 ),
                 verticalSpace(20),
-                const Text(
+                Text(
                   'Enter your email and we will send \nyou a link to reset your password',
+                  style: TextStyle(
+                    color: context.isDarkMode ? Colors.white : Colors.black,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 verticalSpace(40),

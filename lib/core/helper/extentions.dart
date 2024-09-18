@@ -42,5 +42,6 @@ extension SnackBarErrorState on BuildContext {
 }
 
 extension DarkMode on BuildContext {
-  bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
+  bool get isDarkMode =>
+      Theme.of(this).scaffoldBackgroundColor == AppColors.darkBackground;
 }

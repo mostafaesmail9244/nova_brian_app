@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nova_brian_app/core/helper/extentions.dart';
 import 'package:nova_brian_app/core/theme/app_colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -42,6 +43,7 @@ class CustomTextFormField extends StatelessWidget {
       maxLines: maxLines ?? 1,
       autofillHints: autoFill,
       obscureText: isObsecureText ?? false,
+      style: TextStyle(color: context.isDarkMode ? Colors.white : Colors.black),
       decoration: InputDecoration(
         isDense: true,
         prefix: prefixIcon,
