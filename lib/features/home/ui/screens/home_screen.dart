@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_brian_app/core/constants/app_assets.dart';
 import 'package:nova_brian_app/core/helper/extentions.dart';
 import 'package:nova_brian_app/core/routes/routes.dart';
+import 'package:nova_brian_app/core/shared/custom_text_form_field.dart';
 import 'package:nova_brian_app/features/home/logic/cubit/chat_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,7 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   inputOptions: InputOptions(trailing: [
                     IconButton(
                       onPressed: () {
-                        context.read<ChatCubit>().sendMediaMessage();
+                        // context
+                        //     .read<ChatCubit>()
+                        //     .sendMediaMessage(messageController.text);
+                        context.read<ChatCubit>().file = null;
+
+                        showImageDialog(context);
                       },
                       icon: const Icon(Icons.image),
                     )
@@ -87,6 +95,75 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
+    );
+  }
+
+  Future<dynamic> showImageDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext cxt) {
+        return StatefulBuilder(
+          builder: (BuildContext dialogContext, StateSetter setState) {
+            return BlocProvider.value(
+              value: BlocProvider.of<ChatCubit>(
+                  context), // Pass the existing ChatCubit
+              child: AlertDialog(
+                title: const Text("Send Message"),
+                content: BlocBuilder<ChatCubit, ChatState>(
+                  builder: (dialogContext, state) {
+                    final file = dialogContext.read<ChatCubit>().file;
+
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (file != null)
+                          Image.file(
+                            File(file.path),
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        if (file == null)
+                          ElevatedButton(
+                            onPressed: () {
+                              dialogContext.read<ChatCubit>().pickImage();
+                              setState(() {}); // Refresh to display image
+                            },
+                            child: const Text("Add Image"),
+                          ),
+                        const SizedBox(height: 10),
+                        CustomTextFormField(
+                          hintText: 'Message',
+                          controller: messageController,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text("Cancel"),
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: const Text("Send"),
+                    onPressed: () {
+                      context
+                          .read<ChatCubit>()
+                          .sendMediaMessage(messageController.text);
+                      context.read<ChatCubit>().file = null;
+                      messageController.clear();
+                      Navigator.of(dialogContext).pop();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

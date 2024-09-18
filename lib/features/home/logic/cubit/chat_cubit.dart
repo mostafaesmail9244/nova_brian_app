@@ -20,6 +20,7 @@ class ChatCubit extends Cubit<ChatState> {
   final GeminiService _geminiService;
   UserModel? userData;
   ChatUser? currentUser;
+  XFile? file;
 
   Future<void> getUserData() async {
     String? uId = CacheHelper.getData(key: Constants.uId);
@@ -60,6 +61,7 @@ class ChatCubit extends Cubit<ChatState> {
   ChatUser geminiUser =
       ChatUser(id: '2', firstName: 'Gemini', profileImage: AppAssets.logo);
   List<ChatMessage> messages = [];
+  String? userMessage;
   void sendMessage(
     ChatMessage chatMessage,
   ) {
@@ -74,6 +76,7 @@ class ChatCubit extends Cubit<ChatState> {
           File(chatMessage.medias!.first.url).readAsBytesSync(),
         ];
       }
+
       emit(UpdateChatLoadingState());
 
       _geminiService.sendMessageToGemini(
@@ -110,22 +113,30 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  XFile? file;
-
-  void sendMediaMessage() async {
+  void pickImage() async {
     ImagePicker picker = ImagePicker();
-    XFile? file = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-    emit(UploadImageSuccessState());
+    try {
+      XFile? selectedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+      );
+      if (selectedFile != null) {
+        file = selectedFile;
+      }
+      emit(UploadImageSuccessState());
+    } catch (e) {
+      emit(UploadImageErrorState(e.toString()));
+    }
+  }
+
+  void sendMediaMessage(String text) async {
     if (file != null) {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser!,
         createdAt: DateTime.now(),
-        text: "Describe this picture",
+        text: text,
         medias: [
           ChatMedia(
-            url: file.path,
+            url: file!.path,
             fileName: "",
             type: MediaType.image,
           )
