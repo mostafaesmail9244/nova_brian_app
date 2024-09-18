@@ -93,7 +93,9 @@ class SettingsScreen extends StatelessWidget {
                 verticalSpace(20),
                 Center(
                   child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        logOut(context);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: context.isDarkMode
                             ? Colors.grey.shade700
